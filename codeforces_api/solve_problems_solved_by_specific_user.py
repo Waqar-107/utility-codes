@@ -22,8 +22,10 @@ def get_solved_detail(handle, quantity):
 
     ret = []
     for p in json_obj["result"]:
-        if p["verdict"] == "OK":
-            ret.append(problem(p["contestId"], p["problem"]["index"], p["problem"]["rating"]))
+        if p["verdict"] == "OK" and "contestId" in p:
+            # avoid gym problems
+            if "rating" in p["problem"]:
+                ret.append(problem(p["contestId"], p["problem"]["index"], p["problem"]["rating"]))
 
     return ret
 
@@ -36,7 +38,7 @@ def get_solved_minimal(handle, quantity):
 
     ret = []
     for p in json_obj["result"]:
-        if p["verdict"] == "OK":
+        if p["verdict"] == "OK" and "contestId" in p:
             ret.append(str(p["contestId"]) + p["problem"]["index"])
 
     return ret
@@ -55,32 +57,31 @@ solvedByTarget.sort(key=lambda pr: (pr.rating, pr.contestId))
 cwd = os.getcwd()
 dir = os.path.join(cwd, "cf_problemset")
 if os.path.exists(dir):
-    os.rmdir(dir)
-    print("removed directory:", dir)
-
-os.mkdir(dir)
-print("created directory:", dir)
+    print("directory already exists:", dir)
+else:
+    os.mkdir(dir)
+    print("created directory:", dir)
 
 filePath = os.path.join(dir, "A.txt")
 fileA = open(filePath, "w")
 
 filePath = os.path.join(dir, "B.txt")
-fileB = open("B.txt", "w")
+fileB = open(filePath, "w")
 
 filePath = os.path.join(dir, "C.txt")
-fileC = open("C.txt", "w")
+fileC = open(filePath, "w")
 
 filePath = os.path.join(dir, "D.txt")
-fileD = open("D.txt", "w")
+fileD = open(filePath, "w")
 
 filePath = os.path.join(dir, "E.txt")
-fileE = open("E.txt", "w")
+fileE = open(filePath, "w")
 
 filePath = os.path.join(dir, "F.txt")
-fileF = open("F.txt", "w")
+fileF = open(filePath, "w")
 
 filePath = os.path.join(dir, "others.txt")
-fileOther = open("others.txt", "w")
+fileOther = open(filePath, "w")
 # --------------------------------------
 
 for p in solvedByTarget:
