@@ -1,6 +1,7 @@
 # from dust i have come, dust i will be
 
 import xlrd
+import xlwt
 from datetime import datetime
 
 location = "E:\Programming\experimenting-api\wre_thesis_code\TEMPERATUREDATA.xlsx"
@@ -73,10 +74,18 @@ for i in range(1, row):
     except ValueError:
         mn_ignored += 1
 
-output = open("wre_temperature_data.txt", 'w')
+output = xlwt.Workbook()
+output_sheet = output.add_sheet("temperature_avg")
 
 months = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
+
+output_sheet.write(0, 0, "Year")
+output_sheet.write(0, 1, "Month")
+output_sheet.write(0, 2, "Max Temperature Avg")
+output_sheet.write(0, 3, "Min Temperature Avg")
+
+r = 1
 
 # determine avg
 for i in range(1981, 2011):
@@ -87,5 +96,11 @@ for i in range(1981, 2011):
         if mn_cnt[i][j]:
             min_temp[i][j] /= mn_cnt[i][j]
 
-        output.write(
-            str(i) + "-" + months[j - 1] + "-(max : " + str(max_temp[i][j]) + ")-(min : " + str(min_temp[i][j]) + ")\n")
+        output_sheet.write(r, 0, str(i))
+        output_sheet.write(r, 1, months[j - 1])
+        output_sheet.write(r, 2, round(max_temp[i][j], 3))
+        output_sheet.write(r, 3, round(min_temp[i][j], 3))
+
+        r += 1
+
+output.save("temperature_avg.xls")
