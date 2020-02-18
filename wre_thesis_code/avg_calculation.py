@@ -3,7 +3,7 @@
 import xlrd
 import xlwt
 
-location = "E:\Programming\experimenting-api\wre_thesis_code\MAXTEMPERATURE.xls"
+location = "E:\Programming\experimenting-api\wre_thesis_code\MINTEMPERATURE.xls"
 
 wb = xlrd.open_workbook(location)
 sheet = wb.sheet_by_index(0)
@@ -15,7 +15,7 @@ row = sheet.nrows
 col = sheet.ncols
 
 output = xlwt.Workbook()
-output_sheet = output.add_sheet("max_temperature")
+output_sheet = output.add_sheet("MIN_temperature")
 
 '''
 task : for district -> Comilla, Feni, Chandpur
@@ -66,4 +66,4 @@ for i in range(9, row):
     output_sheet.write(last_row_written, 2, month)
     output_sheet.write(last_row_written, 3, str(sunshine))
 
-output.save("temperature_avg.xls")
+output.save("Temperature_avg.xls")

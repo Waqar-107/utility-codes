@@ -16,7 +16,7 @@ row = sheet.nrows
 col = sheet.ncols
 
 output = xlwt.Workbook()
-output_sheet = output.add_sheet("10_year_maxTemperature")
+output_sheet = output.add_sheet("10_year_minTemperature")
 
 '''
 task : for district -> Comilla, Feni, Chandpur
