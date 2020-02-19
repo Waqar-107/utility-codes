@@ -22,10 +22,9 @@ task :
 find average rainfall for each month from 1981-2010 (mathematical average)
 '''
 
-output_sheet.write(0, 0, "District")
-output_sheet.write(0, 1, "Year")
-output_sheet.write(0, 2, "Month")
-output_sheet.write(0, 3, "Avg Rainfall")
+output_sheet.write(0, 0, "Year")
+output_sheet.write(0, 1, "Month")
+output_sheet.write(0, 2, "Avg Rainfall")
 
 last_row_written = 0
 
@@ -47,8 +46,9 @@ months = {
 data = [[0 for j in range(12)] for i in range(3000)]
 day_count = [[0 for j in range(12)] for i in range(3000)]
 
+
 for i in range(1, row):
-    dt = sheet.cell_value(1, 3)
+    dt = sheet.cell_value(i, 3)
     d, m, y = dt.split('-')
 
     year = int(y)
@@ -59,8 +59,11 @@ for i in range(1, row):
 
     rainfall = float(sheet.cell_value(i, 4))
 
+    #print(year, month, m, months[m], dt, i)
+
     data[year][month] += rainfall
     day_count[year][month] += 1
+
 
 for j in range(12):
     for k in range(1981, 2011, 1):
@@ -73,8 +76,39 @@ for j in range(12):
 
         last_row_written += 1
 
-        output_sheet.write(last_row_written, 1, str(k))
-        output_sheet.write(last_row_written, 2, str(j + 1))
-        output_sheet.write(last_row_written, 3, str(val))
+        output_sheet.write(last_row_written, 0, str(k))
+        output_sheet.write(last_row_written, 1, str(j + 1))
+        output_sheet.write(last_row_written, 2, str(val))
 
-#output.save("Rainfall_avg.xls")
+output.save("Rainfall_avg.xls")
+
+# -------------------------------------------------------------------
+
+output2 = xlwt.Workbook()
+output_sheet2 = output2.add_sheet("10_year_rainfall")
+
+output_sheet2.write(0, 0, "Year-Range")
+output_sheet2.write(0, 1, "Month")
+output_sheet2.write(0, 2, "10Y Avg Rainfall")
+
+y_st = [1981, 1991, 2001]
+y_end = [1991, 2001, 2011]
+
+last_row_written = 0
+
+for k in range(3):
+    for j in range(12):
+        val = 0.0
+        for i in range(1981, 1991, 1):
+            val += data[i][j]
+
+        val /= 10.0
+        val = round(val, 3)
+
+        last_row_written += 1
+
+        output_sheet2.write(last_row_written, 0, str(y_st[k]) + '-' + str(y_end[k]))
+        output_sheet2.write(last_row_written, 1, str(j + 1))
+        output_sheet2.write(last_row_written, 2, str(val))
+
+output2.save("10_year_rainfall_avg.xls")
