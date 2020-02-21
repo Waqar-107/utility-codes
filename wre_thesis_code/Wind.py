@@ -89,7 +89,7 @@ for i in range(3):
 
         last_row_written += 1
 
-        output_sheet2.write(last_row_written, 0, str(st[i]) + '-' + str(en[i]))
+        output_sheet2.write(last_row_written, 0, str(st[i]) + '-' + str(en[i] - 1))
         output_sheet2.write(last_row_written, 1, j + 1)
         output_sheet2.write(last_row_written, 2, val)
 

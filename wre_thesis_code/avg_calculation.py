@@ -3,7 +3,7 @@
 import xlrd
 import xlwt
 
-location = "E:\Programming\experimenting-api\wre_thesis_code\ActualData\MINTEMPERATURE.xls"
+location = "E:\Programming\experimenting-api\wre_thesis_code\ActualData\DAILYRAINFALL.xls"
 
 wb = xlrd.open_workbook(location)
 sheet = wb.sheet_by_index(0)
@@ -15,7 +15,7 @@ row = sheet.nrows
 col = sheet.ncols
 
 output = xlwt.Workbook()
-output_sheet = output.add_sheet("MIN_temperature")
+output_sheet = output.add_sheet("rainfall")
 
 '''
 task : for district -> Comilla, Feni, Chandpur
@@ -27,7 +27,7 @@ req_district = ['Comilla', 'Feni', 'Chandpur']
 output_sheet.write(0, 0, "District")
 output_sheet.write(0, 1, "Year")
 output_sheet.write(0, 2, "Month")
-output_sheet.write(0, 3, "Avg Temperature")
+output_sheet.write(0, 3, "Avg Rainfall")
 
 last_row_written = 0
 
@@ -44,7 +44,7 @@ for i in range(9, row):
         continue
 
     cnt = 0
-    sunshine = 0.0
+    total = 0.0
     for j in range(3, 33):
         val = sheet.cell_value(i, j)
 
@@ -53,17 +53,17 @@ for i in range(9, row):
             length = len(val)
         except TypeError:
             cnt += 1
-            sunshine += val
+            total += val
 
     if cnt > 0:
-        sunshine /= cnt
+        total /= cnt
 
-    sunshine = round(sunshine, 3)
+    total = round(total, 3)
 
     last_row_written += 1
     output_sheet.write(last_row_written, 0, district)
     output_sheet.write(last_row_written, 1, year)
     output_sheet.write(last_row_written, 2, month)
-    output_sheet.write(last_row_written, 3, str(sunshine))
+    output_sheet.write(last_row_written, 3, total)
 
-output.save("Temperature_avg.xls")
+output.save("Rainfall_avg.xls")
