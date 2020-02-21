@@ -4,7 +4,7 @@ import xlrd
 import xlwt
 from datetime import datetime
 
-location = "E:\Programming\experimenting-api\wre_thesis_code\Wind.xlsx"
+location = "E:\Programming\experimenting-api\wre_thesis_code\ActualData\Wind.xlsx"
 
 wb = xlrd.open_workbook(location)
 sheet = wb.sheet_by_index(0)
@@ -21,7 +21,7 @@ find max wind for each month from 1981-2010
 '''
 
 output = xlwt.Workbook()
-output_sheet = output.add_sheet("max_window")
+output_sheet = output.add_sheet("max_wind")
 
 output_sheet.write(0, 0, "Year")
 output_sheet.write(0, 1, "Month")

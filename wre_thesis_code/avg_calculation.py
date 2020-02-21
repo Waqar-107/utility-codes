@@ -3,7 +3,7 @@
 import xlrd
 import xlwt
 
-location = "E:\Programming\experimenting-api\wre_thesis_code\MINTEMPERATURE.xls"
+location = "E:\Programming\experimenting-api\wre_thesis_code\ActualData\MINTEMPERATURE.xls"
 
 wb = xlrd.open_workbook(location)
 sheet = wb.sheet_by_index(0)

@@ -4,7 +4,7 @@ import xlrd
 import xlwt
 from datetime import datetime
 
-location = "E:\Programming\experimenting-api\wre_thesis_code\TEMPERATUREDATA.xlsx"
+location = "E:\Programming\experimenting-api\wre_thesis_code\ActualData\TEMPERATUREDATA.xlsx"
 
 wb = xlrd.open_workbook(location)
 sheet = wb.sheet_by_index(0)
