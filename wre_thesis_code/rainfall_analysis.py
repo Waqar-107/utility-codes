@@ -3,7 +3,7 @@
 import xlrd
 import xlwt
 
-location = "E:\Programming\experimenting-api\wre_thesis_code\SW132.xlsx"
+location = "E:\Programming\experimenting-api\wre_thesis_code\ActualData\SW132.xlsx"
 
 wb = xlrd.open_workbook(location)
 sheet = wb.sheet_by_index(0)
@@ -44,7 +44,7 @@ months = {
 }
 
 data = [[0 for j in range(12)] for i in range(3000)]
-day_count = [[0 for j in range(12)] for i in range(3000)]
+day_count = [[0 for y in range(12)] for x in range(3000)]
 
 
 for i in range(1, row):
@@ -76,9 +76,9 @@ for j in range(12):
 
         last_row_written += 1
 
-        output_sheet.write(last_row_written, 0, str(k))
-        output_sheet.write(last_row_written, 1, str(j + 1))
-        output_sheet.write(last_row_written, 2, str(val))
+        output_sheet.write(last_row_written, 0, k)
+        output_sheet.write(last_row_written, 1, (j + 1))
+        output_sheet.write(last_row_written, 2, val)
 
 output.save("Rainfall_avg.xls")
 
@@ -99,7 +99,7 @@ last_row_written = 0
 for k in range(3):
     for j in range(12):
         val = 0.0
-        for i in range(1981, 1991, 1):
+        for i in range(y_st[k], y_end[k], 1):
             val += data[i][j]
 
         val /= 10.0
