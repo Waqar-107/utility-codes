@@ -4,9 +4,9 @@ import xlrd
 import xlwt
 
 startFrom = 9
-skipZero = True
+skipZero = False
 
-location = "ActualData\MAXTEMPERATURE.xls"
+location = "ActualData\DAILYRAINFALL.xls"
 
 wb = xlrd.open_workbook(location)
 sheet = wb.sheet_by_index(0)
