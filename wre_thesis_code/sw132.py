@@ -38,8 +38,8 @@ months = {
 data = [[[0 for k in range(3)] for j in range(12)] for i in range(3000)]
 cnt = [[[0 for k in range(3)] for j in range(12)] for i in range(3000)]
 
-for i in range(1, 2, 1):
-    y, m, d = sheet.cell_value(i, 3).split('-')
+for i in range(1, row, 1):
+    d, m, y = sheet.cell_value(i, 3).split('-')
     val = sheet.cell_value(i, 4)
 
     y = int(y)
@@ -54,7 +54,7 @@ for i in range(1, 2, 1):
     if val == -1:
         continue
 
-    if 10 <= d <= 1:
+    if 1 <= d <= 10:
         data[y][m][0] += val
         cnt[y][m][0] += 1
 
@@ -74,6 +74,7 @@ output_sheet.write(0, 4, "Decade 2")
 output_sheet.write(0, 5, "Decade 3")
 
 last_row_written = 0
+
 for i in range(1981, 2011, 1):
     for j in range(12):
         last_row_written += 1
@@ -88,6 +89,6 @@ for i in range(1981, 2011, 1):
             else:
                 val = 0
 
-            output_sheet.write(last_row_written, k + 3, val)
+            output_sheet.write(last_row_written, k + 3, round(val, 3))
 
 output.save("output1.xls")
